@@ -36,7 +36,7 @@ while cap.isOpened():
     mp_drawing.draw_landmarks(
         frame, 
         pose_results.pose_landmarks, 
-        mp_pose.POSE_CONNECTIONS
+        mp_pose.POSE_CONNECTIONS,
     )
 
     # Flip the Frame

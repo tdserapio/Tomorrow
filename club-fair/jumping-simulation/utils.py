@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+from screeninfo import get_monitors
 
 LANDMARK_NAMES = {
     0: "nose",
@@ -42,13 +43,14 @@ INDEX_LANDMARK = {LANDMARK_NAMES[i]: i for i in LANDMARK_NAMES}
 def landmark_to_image_coords(landmark, frame):
     return (int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0]))
 
-def draw_heart(image, center, size, color):
-    t = np.arange(0, 2*np.pi, 0.1)
-    x = size * (16*np.sin(t)**3)
-    y = size * (13*np.cos(t) - 5*np.cos(2*t) - 2*np.cos(3*t) - np.cos(4*t))
-    x = x + center[0]
-    y = center[1] - y
-    x = x.astype(int)
-    y = y.astype(int)
-    for i in range(len(x) - 1):
-        cv2.line(image, (x[i], y[i]), (x[i+1], y[i+1]), color, 2)
+def drawEyes(image, center, size):
+
+    radius = int(size)
+    border_thickness = int(size * 1.2)
+
+    cv2.circle(image, center, radius + border_thickness, (255, 255, 255), -1)
+    cv2.circle(image, center, radius, (0, 0, 0), -1)
+
+def getScreenSize(ind = 0):
+    monitors = get_monitors()
+    return (monitors[ind].width, monitors[ind].height)
