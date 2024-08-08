@@ -29,14 +29,15 @@ GLOBAL VARIABLES
 pyautogui.PAUSE = 0.02
 
 WIDTH, HEIGHT = getScreenSize()
+WIDTH //= 2
 
 xLeft = 0
 xRight = 0
 yUp = 0
 yDown = 0
 
-paddingX = 500
-paddingY = 250
+paddingX = 250
+paddingY = 140
 
 pressUp = False
 pressDown = False
@@ -150,7 +151,9 @@ while cap.isOpened():
     
     # Read frame from live video feed
     _, frame = cap.read()
-    frameShape = frame.shape
+    
+    # Resize image
+    frame = cv2.resize(frame, (frame.shape[1] // 2, frame.shape[0] // 2))
     
     currFrame += 1
 
@@ -158,11 +161,10 @@ while cap.isOpened():
         setupsetupsetup = False
         
         yUp = int((HEIGHT-frame.shape[0])/2) + paddingY
-        yDown = int((HEIGHT-frame.shape[0])/2) + frame.shape[0] - paddingY - 100
+        yDown = int((HEIGHT-frame.shape[0])/2) + frame.shape[0] - paddingY
         xLeft = int((WIDTH-frame.shape[1])/2) + paddingX
         xRight = int((WIDTH-frame.shape[1])/2) + frame.shape[1] - paddingX
 
-    # Resize image
     frame = cv2.copyMakeBorder(
         frame, 
         int((HEIGHT-frame.shape[0])/2), 
