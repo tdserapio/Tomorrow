@@ -8,6 +8,8 @@ How to run:
 
 2. python main.py
 
+NOTE: please install all of these libraries 
+
 """
 
 # Import necessary packages
